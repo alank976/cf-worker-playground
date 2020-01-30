@@ -1,10 +1,14 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
 
+#[macro_use]
+extern crate serde_derive;
+
 mod utils;
 
 use cfg_if::cfg_if;
 use wasm_bindgen::prelude::*;
+mod handler;
 
 cfg_if! {
     // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -32,37 +36,13 @@ extern "C" {
     // Multiple arguments too!
     #[wasm_bindgen(js_namespace = console, js_name = log)]
     fn log_many(a: &str, b: &str);
-
-    #[wasm_bindgen]
-    pub type string;
 }
 
 #[wasm_bindgen]
-pub fn greet(url: String) -> String {
+pub fn demo_js_log(url: String) -> String {
     log("Hello from Rust");
     use web_sys::console;
 
     console::log_1(&"Hello using web-sys".into());
     format!("Welcome to my site. It is still in progress: {}", url)
-}
-
-#[wasm_bindgen]
-#[derive(Debug)]
-pub struct Foo {
-    bar: String,
-}
-
-#[wasm_bindgen]
-impl Foo {
-    #[wasm_bindgen(getter)]
-    pub fn bar(&self) -> String {
-        self.bar.clone()
-    }
-}
-
-#[wasm_bindgen]
-pub fn foo() -> Foo {
-    Foo {
-        bar: "hello world".to_string(),
-    }
 }

@@ -7,12 +7,11 @@ addEventListener('fetch', event => {
  * @param {Request} request
  */
 async function handleRequest(request) {
-  const { greet, foo, Foo } = wasm_bindgen;
+  const { demo_js_log, handle_and_log_request } = wasm_bindgen;
   await wasm_bindgen(wasm)
-  const greeting = greet(request.url)
-  let fooResult = foo();
-  
-  // Will return pointer memory info instead of serialized JSON 
-  console.log("foo=", JSON.stringify(fooResult));
-  return new Response(fooResult.bar, {status: 200})
+  demo_js_log(request.url);
+  console.log("request in js world=", JSON.stringify(request));
+
+  let resp = handle_and_log_request(request);
+  return new Response(JSON.stringify(resp), { status: 200 })
 }
