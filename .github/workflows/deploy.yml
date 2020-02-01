@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Publish
-        uses: alank976/wrangler-action@c73dcb3
+        uses: alank976/wrangler-action@c14be6f
         with:
           apiToken: ${{ secrets.WRANGLER_API_TOKEN }}
           environment: 'prd'
