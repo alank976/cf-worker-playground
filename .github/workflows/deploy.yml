@@ -2,8 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
 
 jobs:
   deploy:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Publish
-        uses: cloudflare/wrangler-action@1.1.0
+        uses: alank976/wrangler-action@1.6.0
         with:
           apiToken: ${{ secrets.WRANGLER_API_TOKEN }}
           environment: 'prd'
